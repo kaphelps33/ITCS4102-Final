@@ -1,3 +1,4 @@
+import Swift
 import Foundation
 
 // Struct to represent an item in the store
@@ -89,6 +90,7 @@ func main() {
             choice = intInput
             switch choice {
             case 1:
+                store.displayItems()
                 shop(store: store)
             case 2:
                 manageInventory(store: store)
@@ -108,7 +110,7 @@ func main() {
 // Function for customer shopping
 func shop(store: GroceryStore) {
     print("Enter the item you want to purchase:", terminator: " ")
-    if let itemName = readLine() {
+    if let itemName = readLine()?.capitalized {
         print("Enter the quantity:", terminator: " ")
         if let quantityInput = readLine(), let quantity = Int(quantityInput) {
             print("Enter your money:", terminator: " ")
