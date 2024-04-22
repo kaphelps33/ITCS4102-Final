@@ -66,6 +66,18 @@ class GroceryStore {
             print("\(itemName) - Price: $\(item.price) - Quantity: \(item.quantity)")
         }
     }
+    // Function to search for an item by name
+    func searchItem(name: String) {
+        if let item = items[name] {
+            print("Item found:")
+            print("Name: \(item.name)")
+            print("Price: $\(item.price)")
+            print("Quantity: \(item.quantity)")
+    }   else {
+            print("Item \(name) not found in the store.")
+    }
+}
+
 }
 
 // Main program
@@ -78,13 +90,14 @@ func main() {
     store.addItem(name: "Orange", price: 0.75, quantity: 15)
     
     var choice = 0
-    while choice != 4 {
+    while choice != 5 {
         print("\nWelcome to the Grocery Store!")
         print("1. Shop for items")
         print("2. Manage store inventory")
         print("3. Display available items")
-        print("4. Exit")
-        print("Enter your choice (1-4):", terminator: " ")
+        print("4. Search for an item")
+        print("5. Exit")
+        print("Enter your choice (1-5):", terminator: " ")
         
         if let input = readLine(), let intInput = Int(input) {
             choice = intInput
@@ -97,9 +110,12 @@ func main() {
             case 3:
                 store.displayItems()
             case 4:
+                searchItem(store: store)
+            case 5:
                 print("Exiting...")
+                
             default:
-                print("Invalid choice. Please enter a number between 1 and 4.")
+                print("Invalid choice. Please enter a number between 1 and 5.")
             }
         } else {
             print("Invalid input. Please enter a number.")
@@ -210,5 +226,14 @@ func updateItemPrice(store: GroceryStore) {
     }
 }
 
+// Function to search for an item
+func searchItem(store: GroceryStore) {
+    print("Enter the name of the item you want to search for:", terminator: " ")
+    if let itemName = readLine()?.capitalized {
+        store.searchItem(name: itemName)
+    } else {
+        print("Invalid input for item name.")
+    }
+}
 // Run the program
 main()
