@@ -20,21 +20,24 @@ class GroceryStore {
     
     // Function to update existing item's quantity
     func updateItemQuantity(name: String, newQuantity: Int) {
-        if items[name] != nil {
-            items[name]?.quantity = newQuantity
-            print("\(name) quantity updated.")
-        } else {
+        guard var item = items[name] else {
             print("Item \(name) not found in the store.")
+            return
         }
+        item.quantity = newQuantity
+        items[name] = item
+        print("\(name) quantity updated.")
     }
     
     // Function to update existing item's price
     func updateItemPrice(name: String, newPrice: Double) {
-        if items[name] != nil {
-            items[name]?.price = newPrice
-        } else {
+        guard var item = items[name] else {
             print("Item \(name) not found in the store.")
+            return
         }
+        item.price = newPrice
+        items[name] = item
+        print("\(name) price updated.")
     }
     
     // Function to process purchase
@@ -66,6 +69,7 @@ class GroceryStore {
             print("\(itemName) - Price: $\(item.price) - Quantity: \(item.quantity)")
         }
     }
+    
     // Function to search for an item by name
     func searchItem(name: String) {
         if let item = items[name] {
@@ -73,11 +77,10 @@ class GroceryStore {
             print("Name: \(item.name)")
             print("Price: $\(item.price)")
             print("Quantity: \(item.quantity)")
-    }   else {
+        } else {
             print("Item \(name) not found in the store.")
+        }
     }
-}
-
 }
 
 // Main program
@@ -217,7 +220,6 @@ func updateItemPrice(store: GroceryStore) {
         print("Enter the new price:", terminator: " ")
         if let priceInput = readLine(), let price = Double(priceInput) {
             store.updateItemPrice(name: name, newPrice: price)
-            print("\(name) price updated.")
         } else {
             print("Invalid input for price.")
         }
@@ -235,5 +237,6 @@ func searchItem(store: GroceryStore) {
         print("Invalid input for item name.")
     }
 }
+
 // Run the program
 main()
